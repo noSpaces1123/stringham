@@ -27,7 +27,7 @@
 -- OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 -- OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-local stringham = { version = "1.0" }
+local stringham = { version = "1.1" }
 
 
 
@@ -80,7 +80,7 @@ function stringham.split(str, separator)
     return t
 end
 
---Returns string `str` with the first letter of each word (separated by spaces) capitalized. 
+--Returns string `str` with the first letter of each word (separated by spaces) capitalized. If boolean `forceLower` is true (nil by default), the letters of each word in `str` other than the first letter will be put into lowercase.
 function stringham.titleCaps(str, forceLower)
     local words = stringham.split(str, " ")
     local newStr = ""
@@ -121,8 +121,10 @@ function stringham.countWordInstances(str)
     return data
 end
 
---Returns `str` with its characters shuffled randomly.
-function stringham.scramble(str)
+--Returns `str` with its characters shuffled randomly. This function ensures it never returns `str` verbatim by pure coincidence. If boolean `ignoreSingleCharacterError` is true (nil by default), this function will not throw an error when `str` is only one character long and will instead return `str`.
+function stringham.scramble(str, ignoreSingleCharacterError)
+    assert(#str ~= 0, "Cannot scramble an empty string.")
+    if ignoreSingleCharacterError then return str else assert(#str ~= 1, "Because the string supplied to stringham.scramble is only 1 character long, stringham cannot scramble the string.") end
     local newStr
     repeat
         newStr = ""
