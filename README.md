@@ -1,6 +1,11 @@
 # stringham
 A utility library for manipulating strings.
 
+### Setup
+Copy the stringham.lua file into your project directory.
+At the top of your Lua file, write `stringham = require "stringham"`.
+All done!
+
 ### Functions
 ##### `stringham.getChar(str, index)`
 Returns the character at index `index` in string `str`.
